@@ -1,8 +1,8 @@
 #include <Servo.h>
-#include <MeetAndroid.h>
+//#include <MeetAndroid.h>
 
 // Bluetooth MAC: 00:06:66:08:E7:60
-MeetAndroid meetAndroid;
+//MeetAndroid meetAndroid;
 Servo servo;
 
 boolean locked = false;
@@ -12,6 +12,8 @@ const int ledUnlockedPin = A2;
 const int ledLockedPin   = A3;
 const int ledOnboardPin  = 13;
 
+char incomingByte;
+
 void setup(){
   pinMode(ledUnlockedPin, OUTPUT);
   pinMode(ledLockedPin, OUTPUT);
@@ -19,14 +21,14 @@ void setup(){
   
   servo.attach(servoSignalPin);
 
-//  Serial.begin(9600); // USB
-  Serial.begin(115200); // BLUETOOTH
+  Serial.begin(9600); // USB
+  Serial1.begin(115200); // BLUETOOTH
 
   // Register callbacks from Android
-  meetAndroid.registerFunction(android_lockDoor, 'l');  
-  meetAndroid.registerFunction(android_unlockDoor, 'u');  
+//  meetAndroid.registerFunction(android_lockDoor, 'l');  
+//  meetAndroid.registerFunction(android_unlockDoor, 'u');  
 
-//  Serial.println("Startup!");
+  Serial.println("Startup!");
   
   // TOOD: Anyway to read the servo value to see if the doors locked or unlocked?
   // TODO: Bluetooth
@@ -37,7 +39,16 @@ void setup(){
 }
 
 void loop(){
-  meetAndroid.receive(); // you need to keep this in your loop() to receive events
+//  meetAndroid.receive(); // you need to keep this in your loop() to receive events
+  if(Serial1.available() > 0){
+    incomingByte = Serial1.read();
+    Serial.println(incomingByte);
+    if(incomingByte == 'H') {
+      Serial1.print("You sent me the H letter");
+    }
+  }
+
+  Serial1.print("b");
   delay(500);
 //  if(!locked){
 //    Serial.println("Locking!");

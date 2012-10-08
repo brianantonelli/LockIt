@@ -22,5 +22,7 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *statusLabel;
 @property (strong) IBOutlet NSTextView *consoleTextView;
+@property (weak) IBOutlet NSButton *connectButton;
 
+- (IBAction)didTouchConnectButton:(id)sender;
 @end
