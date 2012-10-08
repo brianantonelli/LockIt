@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'LockItBTServer' target in the 'LockItBTServer' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
