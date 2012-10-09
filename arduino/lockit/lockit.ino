@@ -20,14 +20,19 @@ void setup(){
   pinMode(servoSignalPin, OUTPUT);
   
   servo.attach(servoSignalPin);
+  locked = isDoorLocked();
+  updateLEDs();
+  // TODO: tell server door status
 
   Serial.begin(9600); // USB
   Serial1.begin(115200); // BLUETOOTH
 
   // Register callbacks from Android
-//  meetAndroid.registerFunction(android_lockDoor, 'l');  
-//  meetAndroid.registerFunction(android_unlockDoor, 'u');  
-
+  /**
+  meetAndroid.registerFunction(android_lockDoor, 'l');  
+  meetAndroid.registerFunction(android_unlockDoor, 'u');  
+  */
+  
   Serial.println("Startup!");
   
   // TOOD: Anyway to read the servo value to see if the doors locked or unlocked?
@@ -39,47 +44,71 @@ void setup(){
 }
 
 void loop(){
-//  meetAndroid.receive(); // you need to keep this in your loop() to receive events
+  /**
+  meetAndroid.receive(); // you need to keep this in your loop() to receive events
+  */
+  // Check if the server sent us any data over bluetooth
   if(Serial1.available() > 0){
     incomingByte = Serial1.read();
+    Serial.print("You sent: ");
     Serial.println(incomingByte);
-    if(incomingByte == 'H') {
-      Serial1.print("You sent me the H letter");
-    }
   }
 
-  Serial1.print("b");
-  delay(500);
-//  if(!locked){
-//    Serial.println("Locking!");
-//    lockDoor();
-//  }
-//  else{
-//    Serial.println("Unlocking!");
-//    unlockDoor();
-//  }
-//  delay(5000);
+  delay(2000);
+}
+
+// Begin deadbolt code (servo)
+
+boolean isDoorLocked(){
+  // TODO: hack servo to get internal pot value
+  // TODO: get value of servo pot and calculate the position of the servo to determine if the door is locked
+  return false;
 }
 
 void lockDoor(){
+  if(locked) return;
+  
   moveServo(90);
-  digitalWrite(ledLockedPin, HIGH);
-  digitalWrite(ledUnlockedPin, LOW);
   locked = true;
+  updateLEDs();
 }
 
 void unlockDoor(){
+  if(!locked) return;
   moveServo(0);
-  digitalWrite(ledLockedPin, LOW);
-  digitalWrite(ledUnlockedPin, HIGH);
   locked = false;
+  updateLEDs();
 }
 
 void moveServo(int deg){
-//  servo.attach(servoSignalPin);
+  // TODO: Should we attach, write and then detach to save battery? Tried this but had issues.
   servo.write(deg);
-//  servo.detach();
 }
+
+// End deadbolt code (servo)
+
+// Begin physical box stuff (LEDs, sounds, etc)
+
+double getPowerSupplyVoltage(){
+  return 1.0;
+}
+
+void updateLEDs(){
+  if(locked){
+    digitalWrite(ledLockedPin, HIGH);
+    digitalWrite(ledUnlockedPin, LOW);
+  }
+  else{
+    digitalWrite(ledLockedPin, LOW);
+    digitalWrite(ledUnlockedPin, HIGH);
+  }
+}
+
+// End physical box stuff (LEDs, sounds, etc)
+
+// Begin server functions
+
+// End server functions
 
 // Begin Android functions
 void android_lockDoor(byte flag, byte numOfValues){
