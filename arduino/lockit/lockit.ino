@@ -1,61 +1,116 @@
 #include <Servo.h>
-//#include <MeetAndroid.h>
 
 // Bluetooth MAC: 00:06:66:08:E7:60
-//MeetAndroid meetAndroid;
 Servo servo;
 
-boolean locked = false;
+boolean lastStateLocked = false;
+boolean batteryLow      = false;
 
 const int servoSignalPin = A0;
 const int ledUnlockedPin = A2;
 const int ledLockedPin   = A3;
+const int ledLowBattery  = A5;
 const int ledOnboardPin  = 13;
+const int pushButtonPin  = A6;
 
-char incomingByte;
+const double lowVoltageThreshold = 4.0;
+
+// Bluetooth output command strings
+const String BT_KEY_LOCKED   = "key_locked";
+const String BT_KEY_UNLOCKED = "key_unlocked";
+const String BT_KNOCK        = "knocking";
+const String BT_LOW_BATT     = "low_batt";
+const String BT_STATE_LOCK   = "state_locked";
+const String BT_STATE_UNLOCK = "state_unlocked";
+
+// Bluetooth input command bytes
+const char BT_IN_LOCK       = 'l';
+const char BT_IN_UNLOCK     = 'u';
+const char BT_IN_SEND_STATE = 's';
 
 void setup(){
+  // LEDs
   pinMode(ledUnlockedPin, OUTPUT);
   pinMode(ledLockedPin, OUTPUT);
   pinMode(servoSignalPin, OUTPUT);
   
+  // Buttons
+  pinMode(pushButtonPin, INPUT);
+  
+  // Servos
   servo.attach(servoSignalPin);
-  locked = isDoorLocked();
-  updateLEDs();
-  // TODO: tell server door status
 
+  // Serials
   Serial.begin(9600); // USB
   Serial1.begin(115200); // BLUETOOTH
-
-  // Register callbacks from Android
-  /**
-  meetAndroid.registerFunction(android_lockDoor, 'l');  
-  meetAndroid.registerFunction(android_unlockDoor, 'u');  
-  */
   
   Serial.println("Startup!");
-  
-  // TOOD: Anyway to read the servo value to see if the doors locked or unlocked?
-  // TODO: Bluetooth
-  // TODO: WiFi
-  // TODO: Piezo sensor for knock detection
-  // TODO: Hardware button to lock/unlock
-  // TODO: Detect physical key usage
 }
 
 void loop(){
-  /**
-  meetAndroid.receive(); // you need to keep this in your loop() to receive events
-  */
-  // Check if the server sent us any data over bluetooth
-  if(Serial1.available() > 0){
-    incomingByte = Serial1.read();
-    Serial.print("You sent: ");
-    Serial.println(incomingByte);
+  boolean currentStateLocked = isDoorLocked(); // Get current lock state
+  if(lastStateLocked != currentStateLocked){ // If the physical lock state changed then most likely someone used a key
+    if(currentStateLocked){
+      Serial1.print(BT_KEY_LOCKED);
+    }
+    else{
+      Serial1.print(BT_KEY_UNLOCKED);
+    }
+    lastStateLocked = currentStateLocked;
+  }
+  
+  if(isKnocking()){
+    Serial1.print(BT_KNOCK);
+  }
+  
+  if(isHardwareButtonPressed()){ // Check if the phyiscal button was pushed
+    if(lastStateLocked){ // If so then toggle the door lock state
+      lockDoor();
+    }
+    else{
+      unlockDoor();
+    }
+  }
+  
+  char btByte = readBTCommand(); // Check for incoming Bluetooth messages
+  if(btByte != NULL){
+    Serial.println("Got BT Data!");
+
+    if(btByte == BT_IN_LOCK){
+      lockDoor();
+    }
+    else if(btByte == BT_IN_UNLOCK){
+      unlockDoor();
+    }
+    else if(btByte == BT_IN_SEND_STATE){}
+    
+    if(lastStateLocked){
+      Serial1.print(BT_STATE_LOCK);
+    }
+    else{
+      Serial1.print(BT_STATE_UNLOCK);
+    }
+  }
+  
+  if(isLowBattery()){ // Check for a low battery
+    Serial1.print(BT_LOW_BATT); // FIXME: We should only send battery warnings once a day or something. This would blow up the APN..
   }
 
-  delay(2000);
+  updateLEDs(); // Finally update the LEDs and sleep
+  delay(1000);
 }
+
+// Begin Bluetooth code
+
+char readBTCommand(){
+  // Check if the server sent us any data over bluetooth
+  if(Serial1.available() > 0){
+    return Serial1.read();
+  }
+  return NULL;
+}
+
+// End Bluetooth code
 
 // Begin deadbolt code (servo)
 
@@ -66,18 +121,16 @@ boolean isDoorLocked(){
 }
 
 void lockDoor(){
-  if(locked) return;
+  if(lastStateLocked) return;
   
   moveServo(90);
-  locked = true;
-  updateLEDs();
+  lastStateLocked = true;
 }
 
 void unlockDoor(){
-  if(!locked) return;
+  if(!lastStateLocked) return;
   moveServo(0);
-  locked = false;
-  updateLEDs();
+  lastStateLocked = false;
 }
 
 void moveServo(int deg){
@@ -87,14 +140,27 @@ void moveServo(int deg){
 
 // End deadbolt code (servo)
 
-// Begin physical box stuff (LEDs, sounds, etc)
+// Begin physical box stuff (sensors, buttons, LEDs, sounds, etc)
 
-double getPowerSupplyVoltage(){
+boolean isKnocking(){
+  // TODO: talk to the piezo to see if theres knocking
+  // TODO: can this run in a different thread so its polling more?
+  return false;
+}
+
+boolean isHardwareButtonPressed(){
+  int buttonState = digitalRead(pushButtonPin);
+  
+  return buttonState == HIGH;
+}
+
+double getPSUVoltage(){
+  // TODO: return the voltage!
   return 1.0;
 }
 
 void updateLEDs(){
-  if(locked){
+  if(lastStateLocked){
     digitalWrite(ledLockedPin, HIGH);
     digitalWrite(ledUnlockedPin, LOW);
   }
@@ -102,20 +168,20 @@ void updateLEDs(){
     digitalWrite(ledLockedPin, LOW);
     digitalWrite(ledUnlockedPin, HIGH);
   }
+  
+  if(batteryLow){
+    digitalWrite(ledLowBattery, HIGH);
+  }
+  else{
+    digitalWrite(ledLowBattery, LOW);
+  }
 }
 
-// End physical box stuff (LEDs, sounds, etc)
-
-// Begin server functions
-
-// End server functions
-
-// Begin Android functions
-void android_lockDoor(byte flag, byte numOfValues){
-  lockDoor();
+boolean isLowBattery(){
+  int voltage = getPSUVoltage();
+  batteryLow = (voltage <= lowVoltageThreshold);
+  
+  return batteryLow;
 }
 
-void android_unlockDoor(byte flag, byte numOfValues){
-  unlockDoor();
-}
-// End Android functions
+// End physical box stuff

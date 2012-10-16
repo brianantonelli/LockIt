@@ -130,6 +130,18 @@
     NSData *data = [NSData dataWithBytes:dataPointer length:dataLength];
     NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"Received data: %@", value);
+    
+    
+    // Lock physically changed (ie: key)
+    // key_locked = Door now locked
+    // key_unlocked = Door now unlocked
+    
+    // knock = Knocking
+    // batt = Low battery
+    
+    // State query responses
+    // state_locked = Door is locked
+    // state_unlocked = Door is unlocked
 }
 
 - (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel*)rfcommChannel{
