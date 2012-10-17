@@ -37,6 +37,9 @@
 
             mysql_query($query);
         }
+        else if($command == 'send_push'){
+            // TODO
+        }
     }
     
     mysql_close($con);
