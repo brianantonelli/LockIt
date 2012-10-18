@@ -27,8 +27,12 @@
 }
 
 - (IBAction)didTapLock:(id)sender {
+    NSLog(@"did tap lock!");
+    // FIXME
 }
 
 - (IBAction)didTapUnlock:(id)sender {
+    NSLog(@"did tap unlock!");
+    // FIXME
 }
 @end
