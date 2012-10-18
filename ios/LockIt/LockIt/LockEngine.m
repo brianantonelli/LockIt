@@ -10,4 +10,24 @@
 
 @implementation LockEngine
 
+-(void)registerToken:(NSString *)token withUDID:(NSString *)udid onCompletion:(WebServiceResponseBlock)completionBlock onError:(MKNKErrorBlock)errorBlock{
+    MKNetworkOperation *op = [self operationWithPath:@"service_app.php" params:[NSMutableDictionary dictionaryWithObjectsAndKeys:token, @"device_token", udid, @"udid", @"register", @"command", nil]];
+    [op onCompletion:^(MKNetworkOperation *completedOperation) {
+        completionBlock([completedOperation responseJSON]);
+    } onError:^(NSError *error) {
+        errorBlock(error);
+    }];
+    [self enqueueOperation:op];
+}
+
+-(void) sendCommand:(NSString *)command withToken:(NSString *)token onCompletion:(WebServiceResponseBlock)completionBlock onError:(MKNKErrorBlock)errorBlock{
+    MKNetworkOperation *op = [self operationWithPath:@"service_app.php" params:[NSMutableDictionary dictionaryWithObjectsAndKeys:token, @"device_token", command, @"execute_command", @"send_command", @"command", nil]];
+    [op onCompletion:^(MKNetworkOperation *completedOperation) {
+        completionBlock([completedOperation responseJSON]);
+    } onError:^(NSError *error) {
+        errorBlock(error);
+    }];
+    [self enqueueOperation:op];
+}
+
 @end

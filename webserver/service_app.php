@@ -22,6 +22,8 @@
                         mysql_real_escape_string($device_token),
                         mysql_real_escape_string($ip));
             mysql_query($query);
+            
+            echo json_encode(array());
         }
         else if($command == 'send_command'){
             $device_token = $_REQUEST['device_token'];
@@ -32,6 +34,8 @@
                         mysql_real_escape_string($execute_command));
 
             mysql_query($query);
+            
+            echo json_encode(array());
         }
     }
     

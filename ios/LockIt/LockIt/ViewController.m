@@ -7,6 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "LockEngine.h"
+
+#define kCommandLock @"Lock"
+#define kCommandUnlock @"Unlock"
+#define kCommandStatus @"GetState"
 
 @interface ViewController ()
 
@@ -28,11 +33,39 @@
 
 - (IBAction)didTapLock:(id)sender {
     NSLog(@"did tap lock!");
-    // FIXME
+
+    LockEngine *engine = ApplicationDelegate.lockEngine;
+
+    [engine sendCommand:kCommandLock
+              withToken:ApplicationDelegate.deviceToken
+    onCompletion:^(id jsonResponse) {
+        NSLog(@"Response: %@", jsonResponse);
+    }
+    onError:^(NSError *error) {
+        [[[UIAlertView alloc] initWithTitle:@"Error Locking"
+                                   message:[error localizedDescription]
+                                  delegate:nil
+                         cancelButtonTitle:nil
+                          otherButtonTitles:@"Ok", nil] show];
+    }];
 }
 
 - (IBAction)didTapUnlock:(id)sender {
     NSLog(@"did tap unlock!");
-    // FIXME
+
+    LockEngine *engine = ApplicationDelegate.lockEngine;
+    
+    [engine sendCommand:kCommandUnlock
+              withToken:ApplicationDelegate.deviceToken
+           onCompletion:^(id jsonResponse) {
+               NSLog(@"Response: %@", jsonResponse);
+           }
+                onError:^(NSError *error) {
+                    [[[UIAlertView alloc] initWithTitle:@"Error Unlocking"
+                                                message:[error localizedDescription]
+                                               delegate:nil
+                                      cancelButtonTitle:nil
+                                      otherButtonTitles:@"Ok", nil] show];
+                }];
 }
 @end

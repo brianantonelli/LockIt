@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LockEngine.h"
+
+#define ApplicationDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property(nonatomic, strong) LockEngine *lockEngine;
+@property(nonatomic, strong) NSString *deviceToken;
 
 @end

@@ -10,8 +10,15 @@
 
 @implementation AppDelegate
 
+@synthesize lockEngine = _lockEngine,
+            deviceToken = _deviceToken;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if TARGET_IPHONE_SIMULATOR
+    _deviceToken = @"IOS_SIM";
+#endif
+
     // Add registration for remote notifications
     [[UIApplication sharedApplication]
      registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
@@ -55,24 +62,19 @@
 	NSString *udid = dev.uniqueIdentifier;
     
 	// Prepare the Device Token for Registration (remove spaces and < >)
-	NSString *deviceToken = [[[[devToken description]
+	_deviceToken = [[[[devToken description]
                                stringByReplacingOccurrencesOfString:@"<"withString:@""]
                               stringByReplacingOccurrencesOfString:@">" withString:@""]
                              stringByReplacingOccurrencesOfString: @" " withString: @""];
 	
-    // TODO: migrate to mknetworkkit
-    NSString *host = @"localhost";
-	NSString *urlString = [@"/lockit/server_app.php?" stringByAppendingString:@"command=register"];
-	urlString = [urlString stringByAppendingString:@"&udid="];
-	urlString = [urlString stringByAppendingString:udid];
-	urlString = [urlString stringByAppendingString:@"&device_token="];
-	urlString = [urlString stringByAppendingString:deviceToken];
-
-    NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSLog(@"Register URL: %@", url);
-	NSLog(@"Return Data: %@", returnData);
+    [_lockEngine registerToken:_deviceToken
+                      withUDID:udid
+    onCompletion:^(id jsonResponse) {
+        NSLog(@"Device registration response: %@", jsonResponse);
+    }
+    onError:^(NSError *error) {
+        NSLog(@"Error registering device: %@", [error localizedDescription]);
+    }];
 }
 
 /**
