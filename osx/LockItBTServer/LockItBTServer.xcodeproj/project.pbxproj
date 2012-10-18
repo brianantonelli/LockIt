@@ -14,6 +14,18 @@
 		154DD57C1623581E0079EA39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154DD57A1623581E0079EA39 /* MainMenu.xib */; };
 		154DD586162358510079EA39 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154DD582162358410079EA39 /* IOBluetooth.framework */; };
 		154DD587162358510079EA39 /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154DD583162358410079EA39 /* IOBluetoothUI.framework */; };
+		371805E9162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805D8162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.m */; };
+		371805EA162E373100FAF6F1 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805DA162E373100FAF6F1 /* NSData+Base64.m */; };
+		371805EB162E373100FAF6F1 /* NSDate+RFC1123.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805DC162E373100FAF6F1 /* NSDate+RFC1123.m */; };
+		371805EC162E373100FAF6F1 /* NSDictionary+RequestEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805DE162E373100FAF6F1 /* NSDictionary+RequestEncoding.m */; };
+		371805ED162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805E0162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.m */; };
+		371805EE162E373100FAF6F1 /* MKNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805E2162E373100FAF6F1 /* MKNetworkEngine.m */; };
+		371805EF162E373100FAF6F1 /* MKNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805E5162E373100FAF6F1 /* MKNetworkOperation.m */; };
+		371805F0162E373100FAF6F1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805E8162E373100FAF6F1 /* Reachability.m */; };
+		371805F8162E376700FAF6F1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371805F6162E375B00FAF6F1 /* Security.framework */; };
+		371805F9162E376B00FAF6F1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371805F4162E375600FAF6F1 /* SystemConfiguration.framework */; };
+		371805FA162E376F00FAF6F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371805F2162E374F00FAF6F1 /* CFNetwork.framework */; };
+		371805FD162E37FF00FAF6F1 /* BTEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 371805FC162E37FF00FAF6F1 /* BTEngine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +43,28 @@
 		154DD57B1623581E0079EA39 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		154DD582162358410079EA39 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
 		154DD583162358410079EA39 /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
+		371805D7162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAlert+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		371805D8162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		371805D9162E373100FAF6F1 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		371805DA162E373100FAF6F1 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		371805DB162E373100FAF6F1 /* NSDate+RFC1123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFC1123.h"; sourceTree = "<group>"; };
+		371805DC162E373100FAF6F1 /* NSDate+RFC1123.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RFC1123.m"; sourceTree = "<group>"; };
+		371805DD162E373100FAF6F1 /* NSDictionary+RequestEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestEncoding.h"; sourceTree = "<group>"; };
+		371805DE162E373100FAF6F1 /* NSDictionary+RequestEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RequestEncoding.m"; sourceTree = "<group>"; };
+		371805DF162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		371805E0162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		371805E1162E373100FAF6F1 /* MKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkEngine.h; sourceTree = "<group>"; };
+		371805E2162E373100FAF6F1 /* MKNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkEngine.m; sourceTree = "<group>"; };
+		371805E3162E373100FAF6F1 /* MKNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkKit.h; sourceTree = "<group>"; };
+		371805E4162E373100FAF6F1 /* MKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkOperation.h; sourceTree = "<group>"; };
+		371805E5162E373100FAF6F1 /* MKNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkOperation.m; sourceTree = "<group>"; };
+		371805E7162E373100FAF6F1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		371805E8162E373100FAF6F1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		371805F2162E374F00FAF6F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		371805F4162E375600FAF6F1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		371805F6162E375B00FAF6F1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		371805FB162E37FF00FAF6F1 /* BTEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTEngine.h; sourceTree = "<group>"; };
+		371805FC162E37FF00FAF6F1 /* BTEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +72,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				371805FA162E376F00FAF6F1 /* CFNetwork.framework in Frameworks */,
+				371805F9162E376B00FAF6F1 /* SystemConfiguration.framework in Frameworks */,
+				371805F8162E376700FAF6F1 /* Security.framework in Frameworks */,
 				154DD586162358510079EA39 /* IOBluetooth.framework in Frameworks */,
 				154DD587162358510079EA39 /* IOBluetoothUI.framework in Frameworks */,
 				154DD5661623581E0079EA39 /* Cocoa.framework in Frameworks */,
@@ -67,6 +104,9 @@
 		154DD5641623581E0079EA39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				371805F6162E375B00FAF6F1 /* Security.framework */,
+				371805F4162E375600FAF6F1 /* SystemConfiguration.framework */,
+				371805F2162E374F00FAF6F1 /* CFNetwork.framework */,
 				154DD582162358410079EA39 /* IOBluetooth.framework */,
 				154DD583162358410079EA39 /* IOBluetoothUI.framework */,
 				154DD5651623581E0079EA39 /* Cocoa.framework */,
@@ -88,10 +128,13 @@
 		154DD56B1623581E0079EA39 /* LockItBTServer */ = {
 			isa = PBXGroup;
 			children = (
+				371805D5162E373100FAF6F1 /* MKNetworkKit */,
 				154DD5771623581E0079EA39 /* AppDelegate.h */,
 				154DD5781623581E0079EA39 /* AppDelegate.m */,
 				154DD57A1623581E0079EA39 /* MainMenu.xib */,
 				154DD56C1623581E0079EA39 /* Supporting Files */,
+				371805FB162E37FF00FAF6F1 /* BTEngine.h */,
+				371805FC162E37FF00FAF6F1 /* BTEngine.m */,
 			);
 			path = LockItBTServer;
 			sourceTree = "<group>";
@@ -105,6 +148,47 @@
 				154DD5731623581E0079EA39 /* LockItBTServer-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		371805D5162E373100FAF6F1 /* MKNetworkKit */ = {
+			isa = PBXGroup;
+			children = (
+				371805D6162E373100FAF6F1 /* Categories */,
+				371805E1162E373100FAF6F1 /* MKNetworkEngine.h */,
+				371805E2162E373100FAF6F1 /* MKNetworkEngine.m */,
+				371805E3162E373100FAF6F1 /* MKNetworkKit.h */,
+				371805E4162E373100FAF6F1 /* MKNetworkOperation.h */,
+				371805E5162E373100FAF6F1 /* MKNetworkOperation.m */,
+				371805E6162E373100FAF6F1 /* Reachability */,
+			);
+			name = MKNetworkKit;
+			path = "3rd Party/MKNetworkKit";
+			sourceTree = "<group>";
+		};
+		371805D6162E373100FAF6F1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				371805D7162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.h */,
+				371805D8162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.m */,
+				371805D9162E373100FAF6F1 /* NSData+Base64.h */,
+				371805DA162E373100FAF6F1 /* NSData+Base64.m */,
+				371805DB162E373100FAF6F1 /* NSDate+RFC1123.h */,
+				371805DC162E373100FAF6F1 /* NSDate+RFC1123.m */,
+				371805DD162E373100FAF6F1 /* NSDictionary+RequestEncoding.h */,
+				371805DE162E373100FAF6F1 /* NSDictionary+RequestEncoding.m */,
+				371805DF162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.h */,
+				371805E0162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		371805E6162E373100FAF6F1 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				371805E7162E373100FAF6F1 /* Reachability.h */,
+				371805E8162E373100FAF6F1 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +256,15 @@
 			files = (
 				154DD5721623581E0079EA39 /* main.m in Sources */,
 				154DD5791623581E0079EA39 /* AppDelegate.m in Sources */,
+				371805E9162E373100FAF6F1 /* NSAlert+MKNetworkKitAdditions.m in Sources */,
+				371805EA162E373100FAF6F1 /* NSData+Base64.m in Sources */,
+				371805EB162E373100FAF6F1 /* NSDate+RFC1123.m in Sources */,
+				371805EC162E373100FAF6F1 /* NSDictionary+RequestEncoding.m in Sources */,
+				371805ED162E373100FAF6F1 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				371805EE162E373100FAF6F1 /* MKNetworkEngine.m in Sources */,
+				371805EF162E373100FAF6F1 /* MKNetworkOperation.m in Sources */,
+				371805F0162E373100FAF6F1 /* Reachability.m in Sources */,
+				371805FD162E37FF00FAF6F1 /* BTEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +386,7 @@
 				154DD5811623581E0079EA39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
