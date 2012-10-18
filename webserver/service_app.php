@@ -25,11 +25,12 @@
         }
         else if($command == 'send_command'){
             $device_token = $_REQUEST['device_token'];
-            $command = $_REQUEST['command'];
-            
+            $execute_command = $_REQUEST['execute_command'];
+
             $query = sprintf("INSERT INTO command_queue(device_token, command) VALUES('%s', '%s')",
                         mysql_real_escape_string($device_token),
-                        mysql_real_escape_string($command));
+                        mysql_real_escape_string($execute_command));
+
             mysql_query($query);
         }
     }

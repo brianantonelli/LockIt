@@ -25,4 +25,5 @@
 @property (weak) IBOutlet NSButton *connectButton;
 
 - (IBAction)didTouchConnectButton:(id)sender;
+-(void) checkForNewCommands;
 @end

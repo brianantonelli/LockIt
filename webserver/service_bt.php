@@ -28,14 +28,17 @@
             // TODO: Take a set (aka batch) of commands to lighten http traffic
             $id = $_REQUEST['command_id'];
             $code = $_REQUEST['response_code'];
-            $payload = $_REQUEST['response_payload'];
+            $status = $_REQUEST['status'];
+            $payload = $_REQUEST['payload'];
             
-            $query = sprintf("UPDATE command_queue SET response_code = '%s', response_payload = '%s', status = 'completed', time_processed = now() WHERE id = %s",
+            $query = sprintf("UPDATE command_queue SET response_code = '%s', response_payload = '%s', status = '%s', time_processed = now() WHERE id = %s",
                         mysql_real_escape_string($code),
                         mysql_real_escape_string($payload),
+                        mysql_real_escape_string($status),
                         mysql_real_escape_string($id));
-
+echo $query;
             mysql_query($query);
+            echo json_encode(array());
         }
         else if($command == 'send_push'){
             // TODO

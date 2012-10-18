@@ -7,13 +7,26 @@
 //
 
 #import "AppDelegate.h"
+#import "BTEngine.h"
 
-@interface AppDelegate()
+#define kBTCommandLock @"L"
+#define kBTCommandUnlock @"U"
+#define kBTCommandStatus @"S"
+
+@interface AppDelegate(){
+    BOOL connected;
+}
+
+@property(nonatomic, strong) NSTimer *commandChecker;
+@property(nonatomic, strong) BTEngine *engine;
+
 - (void)connectToDevice;
 - (void)disconnectFromDevice;
 - (void)sendStringDataToDevice:(NSString *)data;
 - (void)log:(NSString*)text;
 - (void)updateStatus:(NSString*)statusText withGoodFeeling:(BOOL)feelingGood;
+- (void)onConnect;
+- (void)onDisconnect;
 @end
 
 @implementation AppDelegate
@@ -22,12 +35,16 @@
             consoleTextView = _consoleTextView,
             connectButton = _connectButton,
             device = _device,
-            channel = _channel;
+            channel = _channel,
+            commandChecker = _commandChecker,
+            engine = _engine;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     [_connectButton setTitle:@"Connect"];
     [_connectButton setEnabled:NO];
+    
+    _engine = [[BTEngine alloc] initWithHostName:kBTEngineURL];
     [self connectToDevice];
 }
 
@@ -48,6 +65,7 @@
 //http://kristianlindroos.wordpress.com/tag/iobluetooth/
 
 - (void)connectToDevice{
+    [self onConnect];
     IOBluetoothDeviceSelectorController * deviceSelectVC = [IOBluetoothDeviceSelectorController deviceSelector];
     [self updateStatus:@"Not Connected" withGoodFeeling:NO];
     [self log:@"Finding devices.."];
@@ -88,6 +106,7 @@
             [_connectButton setTitle:@"Disconnect"];
             [_connectButton setEnabled:YES];
             
+            [self onConnect];
             [self sendStringDataToDevice:@"H"];
         }
         else{
@@ -102,6 +121,7 @@
 }
 
 - (void)disconnectFromDevice{
+    [self onDisconnect];
     if([_device isConnected]){
         [_device closeConnection];
         [self updateStatus:@"Disconnected" withGoodFeeling:NO];
@@ -122,6 +142,67 @@
 - (void)updateStatus:(NSString*)statusText withGoodFeeling:(BOOL)feelingGood{
     [_statusLabel setStringValue:statusText];
     [_statusLabel setTextColor:feelingGood? [NSColor greenColor] : [NSColor redColor]];
+}
+
+- (void)onConnect{
+    connected = YES;
+    _commandChecker = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                       target:self
+                                                     selector:@selector(checkForNewCommands)
+                                                     userInfo:nil
+                                                      repeats:YES];
+}
+
+- (void)onDisconnect{
+    connected = NO;
+    if(_commandChecker != nil){
+        [_commandChecker invalidate];
+        _commandChecker = nil;
+    }
+}
+
+-(void)checkForNewCommands{
+    if(!connected) return;
+    
+    [_engine getCommandsOnCompletion:^(id jsonObject) {
+        NSArray *commands = (NSArray*) jsonObject;
+        for (NSDictionary *commandData in commands) {
+            NSString *command = [commandData objectForKey:@"command"];
+            NSString *code = @"200";
+            NSString *status = @"received";
+            if([command isEqualToString:@"Lock"]){
+                [self log:@"Requesting lock"];
+                [self sendStringDataToDevice:kBTCommandLock];
+            }
+            else if([command isEqualToString:@"Unlock"]){
+                [self log:@"Requesting unlock"];
+                [self sendStringDataToDevice:kBTCommandUnlock];
+            }
+            else if([command isEqualToString:@"GetState"]){
+                [self log:@"Requesting state"];
+                [self sendStringDataToDevice:kBTCommandStatus];
+            }
+            else{
+                [self log:[NSString stringWithFormat:@"Unknown command received: %@", command]];
+                code = @"404";
+                status = @"error";
+            }
+            
+            NSString *cid = [commandData objectForKey:@"id"];
+            [_engine updateCommandID:cid
+                            withCode:code
+                            andStatus:status
+                          andPayload:@""
+            onCompletion:^(id jsonResponse) {
+                [self log:[NSString stringWithFormat:@"Updated command %@", cid]];
+            }
+            onError:^(NSError *error) {
+                [self log:[NSString stringWithFormat:@"Unable to update command: %@", cid]];
+            }];
+        }
+    } onError:^(NSError *error) {
+        [self log:[NSString stringWithFormat:@"Error: %@", [error localizedDescription]]];
+    }];
 }
 
 #pragma mark - IOBluetoothRFCOMMChannelDelegate
