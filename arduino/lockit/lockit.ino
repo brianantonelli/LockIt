@@ -75,7 +75,7 @@ void loop(){
   char btByte = readBTCommand(); // Check for incoming Bluetooth messages
   if(btByte != NULL){
     Serial.println("Got BT Data!");
-
+    Serial.println(btByte);
     if(btByte == BT_IN_LOCK){
       lockDoor();
     }
@@ -97,6 +97,7 @@ void loop(){
   }
 
   updateLEDs(); // Finally update the LEDs and sleep
+  
   delay(1000);
 }
 
@@ -107,6 +108,7 @@ char readBTCommand(){
   if(Serial1.available() > 0){
     return Serial1.read();
   }
+
   return NULL;
 }
 
@@ -117,7 +119,7 @@ char readBTCommand(){
 boolean isDoorLocked(){
   // TODO: hack servo to get internal pot value
   // TODO: get value of servo pot and calculate the position of the servo to determine if the door is locked
-  return false;
+  return true;
 }
 
 void lockDoor(){

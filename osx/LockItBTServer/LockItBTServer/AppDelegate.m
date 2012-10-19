@@ -119,7 +119,6 @@
             [_connectButton setEnabled:YES];
             
             [self onConnect];
-            [self sendStringDataToDevice:@"H"];
         }
         else{
             [self updateStatus:@"Disconnected.." withGoodFeeling:NO];
@@ -144,7 +143,7 @@
 
 - (void)sendStringDataToDevice:(NSString *)data {
     NSData *theData = [data dataUsingEncoding:NSASCIIStringEncoding];
-    [_channel writeSync:&theData length:[theData length]];
+    [_channel writeSync:[theData bytes] length:[theData length]];
 }
 
 - (void)log:(NSString*)text{
