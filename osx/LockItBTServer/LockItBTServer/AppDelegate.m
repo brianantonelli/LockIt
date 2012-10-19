@@ -9,9 +9,21 @@
 #import "AppDelegate.h"
 #import "BTEngine.h"
 
-#define kBTCommandLock @"L"
-#define kBTCommandUnlock @"U"
-#define kBTCommandStatus @"S"
+#define kBTOutLock        @"l"
+#define kBTOutUnlock      @"u"
+#define kBTOutStatus      @"s"
+
+#define kBTInLocked       @"key_locked"
+#define kBTInUnlocked     @"key_unlocked"
+#define kBTInKnocking     @"knocking"
+#define kBTInLowBatt      @"low_batt"
+#define kBTInStateLocked  @"state_locked"
+#define kBTInStateUnlockd @"state_unlocked"
+
+#define kPushLocked       @"The front door was unlocked."
+#define kPushUnlocked     @"The front door was unlocked."
+#define kPushKnocking     @"Someone is knocking on the front door."
+#define kPushLowBattery   @"Low battery!"
 
 @interface AppDelegate(){
     BOOL connected;
@@ -172,15 +184,15 @@
             NSString *status = @"received";
             if([command isEqualToString:@"Lock"]){
                 [self log:@"Requesting lock"];
-                [self sendStringDataToDevice:kBTCommandLock];
+                [self sendStringDataToDevice:kBTOutLock];
             }
             else if([command isEqualToString:@"Unlock"]){
                 [self log:@"Requesting unlock"];
-                [self sendStringDataToDevice:kBTCommandUnlock];
+                [self sendStringDataToDevice:kBTOutUnlock];
             }
             else if([command isEqualToString:@"GetState"]){
                 [self log:@"Requesting state"];
-                [self sendStringDataToDevice:kBTCommandStatus];
+                [self sendStringDataToDevice:kBTOutStatus];
             }
             else{
                 [self log:[NSString stringWithFormat:@"Unknown command received: %@", command]];
@@ -212,17 +224,24 @@
     NSString *value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"Received data: %@", value);
     
-    
-    // Lock physically changed (ie: key)
-    // key_locked = Door now locked
-    // key_unlocked = Door now unlocked
-    
-    // knock = Knocking
-    // batt = Low battery
-    
-    // State query responses
-    // state_locked = Door is locked
-    // state_unlocked = Door is unlocked
+    if([value isEqualToString:kBTInLocked]){
+        [_engine sendPushMessage:kPushLocked];
+    }
+    else if([value isEqualToString:kBTInUnlocked]){
+        [_engine sendPushMessage:kPushUnlocked];
+    }
+    else if([value isEqualToString:kBTInKnocking]){
+        [_engine sendPushMessage:kPushKnocking];
+    }
+    else if([value isEqualToString:kBTInLowBatt]){
+        [_engine sendPushMessage:kPushLowBattery];
+    }
+    else if([value isEqualToString:kBTInStateLocked]){
+        // TODO
+    }
+    else if([value isEqualToString:kBTInStateUnlockd]){
+        // TODO
+    }
 }
 
 - (void)rfcommChannelClosed:(IOBluetoothRFCOMMChannel*)rfcommChannel{
