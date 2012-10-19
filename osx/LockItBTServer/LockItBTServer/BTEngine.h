@@ -17,6 +17,6 @@ typedef void (^BTResponseBlock)(id jsonResponse);
 
 -(void) updateCommandID:(NSString*)commandId withCode:(NSString*)code andStatus:(NSString*)status andPayload:(NSString*)payload onCompletion:(BTResponseBlock)completionBlock onError:(MKNKErrorBlock)errorBlock;
 
--(void) sendPushMessage:(NSString*)message onCompletion:(BTResponseBlock)completionBlock onError:(MKNKErrorBlock)errorBlock;
+-(void) sendPushMessage:(NSString*)message;
 
 @end
