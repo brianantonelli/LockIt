@@ -10,7 +10,7 @@
         die('Could not connect: ' . mysql_error());
     }
     mysql_select_db($CONFIG['db_schema'], $con);
-    
+
     if(isset($command)){
         if($command == 'register'){
             $udid = $_REQUEST['udid'];
@@ -36,6 +36,20 @@
             mysql_query($query);
             
             echo json_encode(array());
+        }
+        else if($command == 'get_last_state_response'){
+            $results = mysql_query("SELECT * FROM command_queue WHERE command = 'GetState' AND response_code = '200' AND status = 'completed' ORDER BY time_processed DESC LIMIT 1");
+            $row = mysql_fetch_array($results);
+            $result = array();
+            if($row){
+                array_push($result, array(
+                    'id' => $row['id'],
+                    'time_processed' => $row['time_processed'],
+                    'state' => $row['response_payload']
+                ));
+            }
+            
+            echo json_encode($result);
         }
     }
     

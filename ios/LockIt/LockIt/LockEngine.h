@@ -22,4 +22,6 @@ typedef void (^WebServiceResponseBlock)(id jsonResponse);
        onCompletion:(WebServiceResponseBlock)completionBlock
             onError:(MKNKErrorBlock)errorBlock;
 
+-(void) getLatestStateOnCompletion:(WebServiceResponseBlock)completionBlock
+                           onError:(MKNKErrorBlock)errorBlock;
 @end

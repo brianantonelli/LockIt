@@ -25,6 +25,9 @@
 #define kPushKnocking     @"Someone is knocking on the front door."
 #define kPushLowBattery   @"Low battery!"
 
+#define kStateLocked      @"locked"
+#define kStateUnlocked    @"unlocked"
+
 @interface AppDelegate(){
     BOOL connected;
 }
@@ -180,7 +183,7 @@
         for (NSDictionary *commandData in commands) {
             NSString *command = [commandData objectForKey:@"command"];
             NSString *code = @"200";
-            NSString *status = @"received";
+            NSString *status = @"completed";
             if([command isEqualToString:@"Lock"]){
                 [self log:@"Requesting lock"];
                 [self sendStringDataToDevice:kBTOutLock];
@@ -192,6 +195,7 @@
             else if([command isEqualToString:@"GetState"]){
                 [self log:@"Requesting state"];
                 [self sendStringDataToDevice:kBTOutStatus];
+                status = @"received";
             }
             else{
                 [self log:[NSString stringWithFormat:@"Unknown command received: %@", command]];
@@ -210,6 +214,10 @@
             onError:^(NSError *error) {
                 [self log:[NSString stringWithFormat:@"Unable to update command: %@", cid]];
             }];
+            
+            if([command isEqualToString:@"GetState"]){
+                [_engine sendState:kStateLocked];
+            }
         }
     } onError:^(NSError *error) {
         [self log:[NSString stringWithFormat:@"Error: %@", [error localizedDescription]]];
@@ -236,10 +244,10 @@
         [_engine sendPushMessage:kPushLowBattery];
     }
     else if([value isEqualToString:kBTInStateLocked]){
-        // TODO
+        [_engine sendState:kStateLocked];
     }
     else if([value isEqualToString:kBTInStateUnlockd]){
-        // TODO
+        [_engine sendState:kStateUnlocked];
     }
 }
 

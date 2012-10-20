@@ -30,4 +30,15 @@
     [self enqueueOperation:op];
 }
 
+-(void) getLatestStateOnCompletion:(WebServiceResponseBlock)completionBlock
+                           onError:(MKNKErrorBlock)errorBlock{
+    MKNetworkOperation *op = [self operationWithPath:@"service_app.php" params:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"get_last_state_response", @"command", nil]];
+    [op onCompletion:^(MKNetworkOperation *completedOperation) {
+        completionBlock([completedOperation responseJSON]);
+    } onError:^(NSError *error) {
+        errorBlock(error);
+    }];
+    [self enqueueOperation:op];
+}
+
 @end

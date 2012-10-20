@@ -40,7 +40,14 @@
 }
 
 -(void) sendPushMessage:(NSString*)message{
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"send_message", @"command", message, @"message", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"send_push", @"command", message, @"message", nil];
+    
+    MKNetworkOperation *op = [self operationWithPath:@"service_bt.php" params:params];
+    [self enqueueOperation:op];
+}
+
+-(void) sendState:(NSString*)state{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"send_state", @"command", state, @"state", nil];
     
     MKNetworkOperation *op = [self operationWithPath:@"service_bt.php" params:params];
     [self enqueueOperation:op];

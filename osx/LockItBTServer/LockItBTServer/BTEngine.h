@@ -19,4 +19,6 @@ typedef void (^BTResponseBlock)(id jsonResponse);
 
 -(void) sendPushMessage:(NSString*)message;
 
+-(void) sendState:(NSString*)state;
+
 @end

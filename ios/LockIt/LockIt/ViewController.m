@@ -13,8 +13,10 @@
 #define kCommandUnlock @"Unlock"
 #define kCommandStatus @"GetState"
 
-@interface ViewController ()
-
+@interface ViewController (){
+    BOOL requestingLockState;
+}
+-(void) requestLockState;
 @end
 
 @implementation ViewController
@@ -30,6 +32,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark -
+#pragma mark Private Methods
+
+-(void) requestLockState{
+    if(requestingLockState) return;
+    
+    requestingLockState = YES;
+    
+    
+}
+
+#pragma mark -
+#pragma mark IBActions
 
 - (IBAction)didTapLock:(id)sender {
     NSLog(@"did tap lock!");

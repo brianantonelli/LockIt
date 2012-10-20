@@ -43,6 +43,14 @@ echo $query;
         else if($command == 'send_push'){
             // TODO
         }
+        else if($command == 'send_state'){
+            $state = $_REQUEST['state'];
+            
+            $query = sprintf("UPDATE command_queue SET response_code = '200', response_payload = '%s', status = 'completed', time_processed = now() WHERE command = 'GetState' AND status = 'received'", $state);
+            echo $query;
+            mysql_query($query);
+            echo json_encode(array());
+        }
     }
     
     mysql_close($con);

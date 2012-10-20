@@ -6,12 +6,12 @@ Servo servo;
 boolean lastStateLocked = false;
 boolean batteryLow      = false;
 
-const int servoSignalPin = A0;
+const int servoSignalPin = A8;
 const int ledUnlockedPin = A2;
 const int ledLockedPin   = A3;
 const int ledLowBattery  = A5;
 const int ledOnboardPin  = 13;
-const int pushButtonPin  = A6;
+const int pushButtonPin  = A15;
 
 const double lowVoltageThreshold = 4.0;
 
@@ -119,7 +119,7 @@ char readBTCommand(){
 boolean isDoorLocked(){
   // TODO: hack servo to get internal pot value
   // TODO: get value of servo pot and calculate the position of the servo to determine if the door is locked
-  return true;
+  return lastStateLocked;
 }
 
 void lockDoor(){
@@ -152,7 +152,7 @@ boolean isKnocking(){
 
 boolean isHardwareButtonPressed(){
   int buttonState = digitalRead(pushButtonPin);
-  
+  Serial.println(buttonState);
   return buttonState == HIGH;
 }
 
