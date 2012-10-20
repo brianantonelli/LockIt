@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Brian Antonelli. All rights reserved.
 //
 
-#define kLockEngineURL @"127.0.0.1/lockit"
+#define kLockEngineURL @"192.168.0.115/lockit"
 
 typedef void (^WebServiceResponseBlock)(id jsonResponse);
 

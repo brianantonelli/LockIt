@@ -1,19 +1,40 @@
 #include <Servo.h>
 
 // Bluetooth MAC: 00:06:66:08:E7:60
-Servo servo;
 
+// Variables
+Servo servo;
 boolean lastStateLocked = false;
 boolean batteryLow      = false;
+int sensorReading = 0; // value read from the knock sensor pin
 
+// Tones configs
+byte names[] = {'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C'};  
+int tones[] = {1915, 1700, 1519, 1432, 1275, 1136, 1014, 956};
+byte melody[] = "1f2C2c2d";//1f";//2c2da2a2d2c2f2d2a2c2d2a1f2c2d2a2a2g2p8p8p8p";
+// count length: 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
+//                                10                  20                  30
+int count = 0;
+int count2 = 0;
+int count3 = 0;
+int MAX_COUNT = 24;
+
+// Pins
 const int servoSignalPin = A8;
 const int ledUnlockedPin = A2;
 const int ledLockedPin   = A3;
 const int ledLowBattery  = A5;
 const int ledOnboardPin  = 13;
 const int pushButtonPin  = A15;
+const int servoPotPin    = A14;
+const int knockSensorPin = A13;
+const int speakerPin     = A12;
 
-const double lowVoltageThreshold = 4.0;
+// Constants
+const int servoPositionUnlocked = 100; // FIXME: Testing
+const int servoPositionLocked = 400; // FIXME: Testing
+const double lowVoltageThreshold = 4.0; // FIXME: Testing
+const int threshold = 100;  // threshold value to decide when the detected sound is a knock or not
 
 // Bluetooth output command strings
 const String BT_KEY_LOCKED   = "key_locked";
@@ -36,9 +57,11 @@ void setup(){
   
   // Buttons
   pinMode(pushButtonPin, INPUT);
+  pinMode(servoPotPin, INPUT);
   
-  // Servos
-  servo.attach(servoSignalPin);
+  // Others
+  pinMode(knockSensorPin, INPUT);
+  pinMode(speakerPin, OUTPUT);  
 
   // Serials
   Serial.begin(9600); // USB
@@ -50,6 +73,7 @@ void setup(){
 void loop(){
   boolean currentStateLocked = isDoorLocked(); // Get current lock state
   if(lastStateLocked != currentStateLocked){ // If the physical lock state changed then most likely someone used a key
+    playTone();
     if(currentStateLocked){
       Serial1.print(BT_KEY_LOCKED);
     }
@@ -60,16 +84,19 @@ void loop(){
   }
   
   if(isKnocking()){
-    Serial1.print(BT_KNOCK);
+//    Serial1.print(BT_KNOCK);
+//    Serial.println("Kncoking");
+//    playTone();
   }
   
   if(isHardwareButtonPressed()){ // Check if the phyiscal button was pushed
     if(lastStateLocked){ // If so then toggle the door lock state
-      lockDoor();
-    }
-    else{
       unlockDoor();
     }
+    else{
+      lockDoor();
+    }
+    playTone();
   }
   
   char btByte = readBTCommand(); // Check for incoming Bluetooth messages
@@ -78,9 +105,11 @@ void loop(){
     Serial.println(btByte);
     if(btByte == BT_IN_LOCK){
       lockDoor();
+      playTone();
     }
     else if(btByte == BT_IN_UNLOCK){
       unlockDoor();
+      playTone();
     }
     else if(btByte == BT_IN_SEND_STATE){
       if(lastStateLocked){
@@ -93,7 +122,7 @@ void loop(){
   }
   
   if(isLowBattery()){ // Check for a low battery
-    Serial1.print(BT_LOW_BATT); // FIXME: We should only send battery warnings once a day or something. This would blow up the APN..
+//    Serial1.print(BT_LOW_BATT); // FIXME: We should only send battery warnings once a day or something. This would blow up the APN..
   }
 
   updateLEDs(); // Finally update the LEDs and sleep
@@ -117,15 +146,23 @@ char readBTCommand(){
 // Begin deadbolt code (servo)
 
 boolean isDoorLocked(){
-  // TODO: hack servo to get internal pot value
-  // TODO: get value of servo pot and calculate the position of the servo to determine if the door is locked
-  return lastStateLocked;
+  int servoVal = analogRead(servoPotPin);
+
+  if(servoVal <= servoPositionUnlocked){
+    return false;
+  }
+  else if(servoVal >= servoPositionLocked){
+    return true;
+  }  
+
+  return lastStateLocked; // Servo is between lock and unlocked, probably being manually moved
+
 }
 
 void lockDoor(){
   if(lastStateLocked) return;
   
-  moveServo(90);
+  moveServo(180);
   lastStateLocked = true;
 }
 
@@ -136,8 +173,13 @@ void unlockDoor(){
 }
 
 void moveServo(int deg){
-  // TODO: Should we attach, write and then detach to save battery? Tried this but had issues.
+  servo.attach(servoSignalPin);
   servo.write(deg);
+  // delay needed because we have to wait for the servo movement to complete before 
+  //  detaching otherwise it will cancel the servo movement. 600ms seems to be about the 
+  //  max time it takes to do a 180deg rotation.
+  delay(600); 
+  servo.detach();
 }
 
 // End deadbolt code (servo)
@@ -145,14 +187,20 @@ void moveServo(int deg){
 // Begin physical box stuff (sensors, buttons, LEDs, sounds, etc)
 
 boolean isKnocking(){
-  // TODO: talk to the piezo to see if theres knocking
-  // TODO: can this run in a different thread so its polling more?
+  sensorReading = analogRead(knockSensorPin);
+  
+  if(sensorReading >= threshold){
+    return true;
+    Serial.println("Knock!");         
+  }
+  
   return false;
+
 }
 
 boolean isHardwareButtonPressed(){
   int buttonState = digitalRead(pushButtonPin);
-  Serial.println(buttonState);
+  
   return buttonState == HIGH;
 }
 
@@ -176,6 +224,7 @@ void updateLEDs(){
 
 boolean isLowBattery(){
   int voltage = readVcc();
+//  Serial.println(voltage);
   batteryLow = (voltage <= lowVoltageThreshold);
   
   return batteryLow;
@@ -207,4 +256,27 @@ long readVcc(){
   result = 1125300L / result; // Calculate Vcc (in mV); 1125300 = 1.1*1023*1000
   return result; // Vcc in millivolts
 }
+
+void playTone(){
+  Serial.println("playTone()");
+  analogWrite(speakerPin, 0);
+  for(count = 0; count < MAX_COUNT; count++){
+    for (count3 = 0; count3 <= (melody[count*2] - 48) * 30; count3++) {
+      for (count2=0;count2<8;count2++) {
+        if (names[count2] == melody[count*2 + 1]) {       
+          analogWrite(speakerPin,500);
+          delayMicroseconds(tones[count2]);
+          analogWrite(speakerPin, 0);
+          delayMicroseconds(tones[count2]);
+        } 
+        if (melody[count*2 + 1] == 'p') {
+          // make a pause of a certain size
+          analogWrite(speakerPin, 0);
+          delayMicroseconds(500);
+        }
+      }
+    }
+  }
+}
+
 // End physical box stuff

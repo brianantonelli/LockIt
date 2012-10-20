@@ -215,9 +215,9 @@
                 [self log:[NSString stringWithFormat:@"Unable to update command: %@", cid]];
             }];
             
-            if([command isEqualToString:@"GetState"]){
-                [_engine sendState:kStateLocked];
-            }
+//            if([command isEqualToString:@"GetState"]){
+//                [_engine sendState:kStateLocked];
+//            }
         }
     } onError:^(NSError *error) {
         [self log:[NSString stringWithFormat:@"Error: %@", [error localizedDescription]]];

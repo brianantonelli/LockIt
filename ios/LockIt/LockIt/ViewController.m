@@ -70,7 +70,7 @@
     NSLog(@"did tap unlock!");
 
     LockEngine *engine = ApplicationDelegate.lockEngine;
-    
+    NSLog(@"locKEngine %@", engine);
     [engine sendCommand:kCommandUnlock
               withToken:ApplicationDelegate.deviceToken
            onCompletion:^(id jsonResponse) {

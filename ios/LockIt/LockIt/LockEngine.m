@@ -21,6 +21,7 @@
 }
 
 -(void) sendCommand:(NSString *)command withToken:(NSString *)token onCompletion:(WebServiceResponseBlock)completionBlock onError:(MKNKErrorBlock)errorBlock{
+    NSLog(@"sendCommand");
     MKNetworkOperation *op = [self operationWithPath:@"service_app.php" params:[NSMutableDictionary dictionaryWithObjectsAndKeys:token, @"device_token", command, @"execute_command", @"send_command", @"command", nil]];
     [op onCompletion:^(MKNetworkOperation *completedOperation) {
         completionBlock([completedOperation responseJSON]);

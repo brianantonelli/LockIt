@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation AppDelegate
 
@@ -15,9 +16,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#if TARGET_IPHONE_SIMULATOR
+//#if TARGET_IPH`ONE_SIMULATOR
     _deviceToken = @"IOS_SIM";
-#endif
+//#endif
+    
+    _lockEngine = [[LockEngine alloc] initWithHostName:kLockEngineURL];
 
     // Add registration for remote notifications
     [[UIApplication sharedApplication]
