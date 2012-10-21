@@ -25,8 +25,8 @@
 #define kPushKnocking     @"Someone is knocking on the front door."
 #define kPushLowBattery   @"Low battery!"
 
-#define kStateLocked      @"locked"
-#define kStateUnlocked    @"unlocked"
+#define kStateLocked      @"Locked"
+#define kStateUnlocked    @"Unlocked"
 
 @interface AppDelegate(){
     BOOL connected;
@@ -177,7 +177,7 @@
 
 -(void)checkForNewCommands{
     if(!connected) return;
-    
+//    NSLog(@"checkForNewCommands");
     [_engine getCommandsOnCompletion:^(id jsonObject) {
         NSArray *commands = (NSArray*) jsonObject;
         for (NSDictionary *commandData in commands) {
@@ -214,10 +214,6 @@
             onError:^(NSError *error) {
                 [self log:[NSString stringWithFormat:@"Unable to update command: %@", cid]];
             }];
-            
-//            if([command isEqualToString:@"GetState"]){
-//                [_engine sendState:kStateLocked];
-//            }
         }
     } onError:^(NSError *error) {
         [self log:[NSString stringWithFormat:@"Error: %@", [error localizedDescription]]];

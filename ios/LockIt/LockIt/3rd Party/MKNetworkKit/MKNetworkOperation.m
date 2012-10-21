@@ -574,8 +574,8 @@
       finalURL = [NSURL URLWithString:aURLString];
     }
     
-      NSLog(@"URL: %@", finalURL);
-    self.request = [NSMutableURLRequest requestWithURL:finalURL                                                           
+//      NSLog(@"URL: %@", finalURL);
+    self.request = [NSMutableURLRequest requestWithURL:finalURL
                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData                                            
                                        timeoutInterval:kMKNetworkKitRequestTimeOutInSeconds];
     

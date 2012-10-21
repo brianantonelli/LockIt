@@ -2,12 +2,12 @@
     error_reporting(E_ALL);
     ini_set('display_errors', '1');
     require_once('config.php.inc');
+    require_once('utils.php');
 
-    
     $command = $_REQUEST['command'];
     $con = mysql_connect($CONFIG['db_host'], $CONFIG['db_user'], $CONFIG['db_pass']);
     if(!$con){
-        die('Could not connect: ' . mysql_error());
+        echo json_encode('Could not connect: ' . mysql_error());
     }
     mysql_select_db($CONFIG['db_schema'], $con);
 
@@ -44,7 +44,7 @@
             if($row){
                 array_push($result, array(
                     'id' => $row['id'],
-                    'time_processed' => $row['time_processed'],
+                    'time_processed' => time_passed(strtotime($row['time_processed'])),
                     'state' => $row['response_payload']
                 ));
             }

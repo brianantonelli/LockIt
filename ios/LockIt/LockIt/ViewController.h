@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<SettingsViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *lockButton;
+@property (weak, nonatomic) IBOutlet UIButton *unlockButton;
+@property (weak, nonatomic) IBOutlet UIImageView *lockImageView;
 
 - (IBAction)didTapLock:(id)sender;
 - (IBAction)didTapUnlock:(id)sender;

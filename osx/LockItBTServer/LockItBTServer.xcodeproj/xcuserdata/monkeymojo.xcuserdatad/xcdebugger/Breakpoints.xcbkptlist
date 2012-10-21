@@ -34,24 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "LockItBTServer/AppDelegate.m"
-         timestampString = "372401737.638192"
+         timestampString = "372480079.919347"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
-         landmarkName = "-checkForNewCommands"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "LockItBTServer/AppDelegate.m"
-         timestampString = "372401737.638192"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "230"
-         endingLineNumber = "230"
+         startingLineNumber = "226"
+         endingLineNumber = "226"
          landmarkName = "-rfcommChannelData:data:length:"
          landmarkType = "5">
       </FileBreakpoint>

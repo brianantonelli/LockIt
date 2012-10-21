@@ -36,7 +36,7 @@ const int servoPositionLocked = 400; // FIXME: Testing
 const double lowVoltageThreshold = 4.0; // FIXME: Testing
 const int threshold = 100;  // threshold value to decide when the detected sound is a knock or not
 
-// Bluetooth output command strings
+// Bluetooth output command strings -- SINGLE CHARACTERS ONLY otherwise the OSX app gets them chunked
 const String BT_KEY_LOCKED   = "1";
 const String BT_KEY_UNLOCKED = "2";
 const String BT_KNOCK        = "3";
@@ -188,7 +188,8 @@ void moveServo(int deg){
 
 boolean isKnocking(){
   sensorReading = analogRead(knockSensorPin);
-  
+  Serial.print("Knocking reading: ");
+  Serial.println(sensorReading);
   if(sensorReading >= threshold){
     return true;
     Serial.println("Knock!");         

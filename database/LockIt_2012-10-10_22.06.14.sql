@@ -17,7 +17,7 @@
 --
 -- Create schema lockit
 --
-DROP DATABASE lockit;
+
 CREATE DATABASE IF NOT EXISTS lockit;
 USE lockit;
 
@@ -30,46 +30,13 @@ CREATE TABLE  `lockit`.`command_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `device_token` varchar(64) NOT NULL,
   `command` enum('Lock','Unlock','GetState') NOT NULL,
-  `time_received` timestamp DEFAULT now(),
-  `time_processed` timestamp NOT NULL,
+  `time_received` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_processed` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `response_code` enum('200','404','500') DEFAULT NULL,
   `response_payload` varchar(256) DEFAULT NULL,
-  `status` enum('sent','received','completed') NOT NULL,
+  `status` enum('sent','received','completed','error') NOT NULL DEFAULT 'sent',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `lockit`.`command_queue`
---
-
-/*!40000 ALTER TABLE `command_queue` DISABLE KEYS */;
-LOCK TABLES `command_queue` WRITE;
-UNLOCK TABLES;
-/*!40000 ALTER TABLE `command_queue` ENABLE KEYS */;
-
-
---
--- Definition of table `lockit`.`push_queue`
---
-
-DROP TABLE IF EXISTS `lockit`.`push_queue`;
-CREATE TABLE  `lockit`.`push_queue` (
-  `message_id` int(11) NOT NULL AUTO_INCREMENT,
-  `device_token` varchar(64) NOT NULL,
-  `payload` varchar(256) NOT NULL,
-  `time_queued` datetime NOT NULL,
-  `time_sent` datetime DEFAULT NULL,
-  PRIMARY KEY (`message_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `lockit`.`push_queue`
---
-
-/*!40000 ALTER TABLE `push_queue` DISABLE KEYS */;
-LOCK TABLES `push_queue` WRITE;
-UNLOCK TABLES;
-/*!40000 ALTER TABLE `push_queue` ENABLE KEYS */;
+) ENGINE=MyISAM AUTO_INCREMENT=859 DEFAULT CHARSET=utf8;
 
 
 --
@@ -83,15 +50,6 @@ CREATE TABLE  `lockit`.`users` (
   `ip_address` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`udid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `lockit`.`users`
---
-
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-LOCK TABLES `users` WRITE;
-UNLOCK TABLES;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
 

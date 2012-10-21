@@ -32,6 +32,29 @@
 		371806611630BEAC00FAF6F1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3718065C1630BE8600FAF6F1 /* SystemConfiguration.framework */; };
 		371806621630BEB000FAF6F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371806591630BE8100FAF6F1 /* CFNetwork.framework */; };
 		3718066816333F7D00FAF6F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3718066516333F3D00FAF6F1 /* AudioToolbox.framework */; };
+		37C3BA191633A527007BEA42 /* NSTexturedFullScreenBackgroundColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA171633A527007BEA42 /* NSTexturedFullScreenBackgroundColor.png */; };
+		37C3BA1A1633A527007BEA42 /* NSTexturedFullScreenBackgroundColor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA181633A527007BEA42 /* NSTexturedFullScreenBackgroundColor@2x.png */; };
+		37C3BA201633A5D0007BEA42 /* greyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA1B1633A5D0007BEA42 /* greyButton.png */; };
+		37C3BA211633A5D0007BEA42 /* greyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA1C1633A5D0007BEA42 /* greyButton@2x.png */; };
+		37C3BA221633A5D0007BEA42 /* greyButton@2xpng in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA1D1633A5D0007BEA42 /* greyButton@2xpng */; };
+		37C3BA231633A5D0007BEA42 /* greyButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA1E1633A5D0007BEA42 /* greyButtonHighlight.png */; };
+		37C3BA241633A5D0007BEA42 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA1F1633A5D0007BEA42 /* greyButtonHighlight@2x.png */; };
+		37C3BA291633A6BF007BEA42 /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA251633A6BF007BEA42 /* blueButton.png */; };
+		37C3BA2A1633A6BF007BEA42 /* blueButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA261633A6BF007BEA42 /* blueButton@2x.png */; };
+		37C3BA2B1633A6BF007BEA42 /* blueButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA271633A6BF007BEA42 /* blueButtonHighlight.png */; };
+		37C3BA2C1633A6BF007BEA42 /* blueButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA281633A6BF007BEA42 /* blueButtonHighlight@2x.png */; };
+		37C3BA2F1633ACDB007BEA42 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C3BA2E1633ACDA007BEA42 /* SettingsViewController.m */; };
+		37C3BA381633B5B4007BEA42 /* locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA341633B5B4007BEA42 /* locked.png */; };
+		37C3BA391633B5B4007BEA42 /* locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA351633B5B4007BEA42 /* locked@2x.png */; };
+		37C3BA3A1633B5B4007BEA42 /* unlocked.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA361633B5B4007BEA42 /* unlocked.png */; };
+		37C3BA3B1633B5B4007BEA42 /* unlocked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA371633B5B4007BEA42 /* unlocked@2x.png */; };
+		37C3BA3D1633C3C0007BEA42 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA3C1633C3C0007BEA42 /* Icon.png */; };
+		37C3BA3F1633C3C8007BEA42 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA3E1633C3C8007BEA42 /* Icon@2x.png */; };
+		37C3BA411633C3EB007BEA42 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA401633C3EB007BEA42 /* Icon-72.png */; };
+		37C3BA431633C3F2007BEA42 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA421633C3F2007BEA42 /* Icon-72@2x.png */; };
+		37C3BA451633C4CE007BEA42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA441633C4CE007BEA42 /* Default-568h@2x.png */; };
+		37C3BA471633C685007BEA42 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA461633C685007BEA42 /* Default@2x.png */; };
+		37C3BA491633C699007BEA42 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 37C3BA481633C699007BEA42 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +98,30 @@
 		3718065C1630BE8600FAF6F1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3718065E1630BE9200FAF6F1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3718066516333F3D00FAF6F1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		37C3BA171633A527007BEA42 /* NSTexturedFullScreenBackgroundColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NSTexturedFullScreenBackgroundColor.png; path = images/NSTexturedFullScreenBackgroundColor.png; sourceTree = "<group>"; };
+		37C3BA181633A527007BEA42 /* NSTexturedFullScreenBackgroundColor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NSTexturedFullScreenBackgroundColor@2x.png"; path = "images/NSTexturedFullScreenBackgroundColor@2x.png"; sourceTree = "<group>"; };
+		37C3BA1B1633A5D0007BEA42 /* greyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greyButton.png; path = images/greyButton.png; sourceTree = "<group>"; };
+		37C3BA1C1633A5D0007BEA42 /* greyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "greyButton@2x.png"; path = "images/greyButton@2x.png"; sourceTree = "<group>"; };
+		37C3BA1D1633A5D0007BEA42 /* greyButton@2xpng */ = {isa = PBXFileReference; lastKnownFileType = file; name = "greyButton@2xpng"; path = "images/greyButton@2xpng"; sourceTree = "<group>"; };
+		37C3BA1E1633A5D0007BEA42 /* greyButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greyButtonHighlight.png; path = images/greyButtonHighlight.png; sourceTree = "<group>"; };
+		37C3BA1F1633A5D0007BEA42 /* greyButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "greyButtonHighlight@2x.png"; path = "images/greyButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		37C3BA251633A6BF007BEA42 /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = images/blueButton.png; sourceTree = "<group>"; };
+		37C3BA261633A6BF007BEA42 /* blueButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blueButton@2x.png"; path = "images/blueButton@2x.png"; sourceTree = "<group>"; };
+		37C3BA271633A6BF007BEA42 /* blueButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButtonHighlight.png; path = images/blueButtonHighlight.png; sourceTree = "<group>"; };
+		37C3BA281633A6BF007BEA42 /* blueButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blueButtonHighlight@2x.png"; path = "images/blueButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		37C3BA2D1633ACDA007BEA42 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		37C3BA2E1633ACDA007BEA42 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		37C3BA341633B5B4007BEA42 /* locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = locked.png; path = images/locked.png; sourceTree = "<group>"; };
+		37C3BA351633B5B4007BEA42 /* locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "locked@2x.png"; path = "images/locked@2x.png"; sourceTree = "<group>"; };
+		37C3BA361633B5B4007BEA42 /* unlocked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unlocked.png; path = images/unlocked.png; sourceTree = "<group>"; };
+		37C3BA371633B5B4007BEA42 /* unlocked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unlocked@2x.png"; path = "images/unlocked@2x.png"; sourceTree = "<group>"; };
+		37C3BA3C1633C3C0007BEA42 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		37C3BA3E1633C3C8007BEA42 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		37C3BA401633C3EB007BEA42 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		37C3BA421633C3F2007BEA42 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		37C3BA441633C4CE007BEA42 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		37C3BA461633C685007BEA42 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		37C3BA481633C699007BEA42 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +145,13 @@
 		371805FE162F911500FAF6F1 = {
 			isa = PBXGroup;
 			children = (
+				37C3BA481633C699007BEA42 /* Default.png */,
+				37C3BA461633C685007BEA42 /* Default@2x.png */,
+				37C3BA441633C4CE007BEA42 /* Default-568h@2x.png */,
+				37C3BA421633C3F2007BEA42 /* Icon-72@2x.png */,
+				37C3BA401633C3EB007BEA42 /* Icon-72.png */,
+				37C3BA3E1633C3C8007BEA42 /* Icon@2x.png */,
+				37C3BA3C1633C3C0007BEA42 /* Icon.png */,
 				37180613162F911500FAF6F1 /* LockIt */,
 				3718060C162F911500FAF6F1 /* Frameworks */,
 				3718060A162F911500FAF6F1 /* Products */,
@@ -129,11 +183,14 @@
 		37180613162F911500FAF6F1 /* LockIt */ = {
 			isa = PBXGroup;
 			children = (
+				37C3BA161633A50E007BEA42 /* Images */,
 				371806331630B95200FAF6F1 /* MKNetworkKit */,
 				3718061C162F911500FAF6F1 /* AppDelegate.h */,
 				3718061D162F911500FAF6F1 /* AppDelegate.m */,
 				3718064F1630B99100FAF6F1 /* LockEngine.h */,
 				371806501630B99100FAF6F1 /* LockEngine.m */,
+				37C3BA2D1633ACDA007BEA42 /* SettingsViewController.h */,
+				37C3BA2E1633ACDA007BEA42 /* SettingsViewController.m */,
 				37180625162F911500FAF6F1 /* MainStoryboard_iPhone.storyboard */,
 				37180628162F911500FAF6F1 /* MainStoryboard_iPad.storyboard */,
 				3718062B162F911500FAF6F1 /* ViewController.h */,
@@ -198,6 +255,28 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
+		37C3BA161633A50E007BEA42 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				37C3BA341633B5B4007BEA42 /* locked.png */,
+				37C3BA351633B5B4007BEA42 /* locked@2x.png */,
+				37C3BA361633B5B4007BEA42 /* unlocked.png */,
+				37C3BA371633B5B4007BEA42 /* unlocked@2x.png */,
+				37C3BA251633A6BF007BEA42 /* blueButton.png */,
+				37C3BA261633A6BF007BEA42 /* blueButton@2x.png */,
+				37C3BA271633A6BF007BEA42 /* blueButtonHighlight.png */,
+				37C3BA281633A6BF007BEA42 /* blueButtonHighlight@2x.png */,
+				37C3BA1B1633A5D0007BEA42 /* greyButton.png */,
+				37C3BA1C1633A5D0007BEA42 /* greyButton@2x.png */,
+				37C3BA1D1633A5D0007BEA42 /* greyButton@2xpng */,
+				37C3BA1E1633A5D0007BEA42 /* greyButtonHighlight.png */,
+				37C3BA1F1633A5D0007BEA42 /* greyButtonHighlight@2x.png */,
+				37C3BA171633A527007BEA42 /* NSTexturedFullScreenBackgroundColor.png */,
+				37C3BA181633A527007BEA42 /* NSTexturedFullScreenBackgroundColor@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,6 +334,28 @@
 				37180624162F911500FAF6F1 /* Default-568h@2x.png in Resources */,
 				37180627162F911500FAF6F1 /* MainStoryboard_iPhone.storyboard in Resources */,
 				3718062A162F911500FAF6F1 /* MainStoryboard_iPad.storyboard in Resources */,
+				37C3BA191633A527007BEA42 /* NSTexturedFullScreenBackgroundColor.png in Resources */,
+				37C3BA1A1633A527007BEA42 /* NSTexturedFullScreenBackgroundColor@2x.png in Resources */,
+				37C3BA201633A5D0007BEA42 /* greyButton.png in Resources */,
+				37C3BA211633A5D0007BEA42 /* greyButton@2x.png in Resources */,
+				37C3BA221633A5D0007BEA42 /* greyButton@2xpng in Resources */,
+				37C3BA231633A5D0007BEA42 /* greyButtonHighlight.png in Resources */,
+				37C3BA241633A5D0007BEA42 /* greyButtonHighlight@2x.png in Resources */,
+				37C3BA291633A6BF007BEA42 /* blueButton.png in Resources */,
+				37C3BA2A1633A6BF007BEA42 /* blueButton@2x.png in Resources */,
+				37C3BA2B1633A6BF007BEA42 /* blueButtonHighlight.png in Resources */,
+				37C3BA2C1633A6BF007BEA42 /* blueButtonHighlight@2x.png in Resources */,
+				37C3BA381633B5B4007BEA42 /* locked.png in Resources */,
+				37C3BA391633B5B4007BEA42 /* locked@2x.png in Resources */,
+				37C3BA3A1633B5B4007BEA42 /* unlocked.png in Resources */,
+				37C3BA3B1633B5B4007BEA42 /* unlocked@2x.png in Resources */,
+				37C3BA3D1633C3C0007BEA42 /* Icon.png in Resources */,
+				37C3BA3F1633C3C8007BEA42 /* Icon@2x.png in Resources */,
+				37C3BA411633C3EB007BEA42 /* Icon-72.png in Resources */,
+				37C3BA431633C3F2007BEA42 /* Icon-72@2x.png in Resources */,
+				37C3BA451633C4CE007BEA42 /* Default-568h@2x.png in Resources */,
+				37C3BA471633C685007BEA42 /* Default@2x.png in Resources */,
+				37C3BA491633C699007BEA42 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +378,7 @@
 				3718064D1630B95200FAF6F1 /* MKNetworkOperation.m in Sources */,
 				3718064E1630B95200FAF6F1 /* Reachability.m in Sources */,
 				371806511630B99100FAF6F1 /* LockEngine.m in Sources */,
+				37C3BA2F1633ACDB007BEA42 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

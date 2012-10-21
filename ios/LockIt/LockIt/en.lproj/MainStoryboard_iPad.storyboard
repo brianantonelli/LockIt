@@ -17,27 +17,30 @@
                                     <constraint firstAttribute="height" constant="21" id="gnQ-DA-GKb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Unlocked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbe-Dh-Eq8">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="666" id="RfN-Og-Km0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I2V-U4-rWT">
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pyb-1d-gJY">
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="196" id="MyV-Xo-fpb"/>
+                                            <constraint firstAttribute="height" constant="197" id="30X-sQ-L0B"/>
                                             <constraint firstAttribute="width" constant="685" id="tvW-iJ-uP0"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="47"/>
-                                        <state key="normal" title="Lock">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Lock" backgroundImage="blueButton.png">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -48,12 +51,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuT-75-2Du">
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="196" id="nyW-CK-zzg"/>
+                                            <constraint firstAttribute="height" constant="197" id="Pvh-1m-oZr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="47"/>
-                                        <state key="normal" title="Unlock">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Unlock" backgroundImage="blueButton.png">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -64,27 +68,32 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Pyb-1d-gJY" firstAttribute="top" secondItem="I2V-U4-rWT" secondAttribute="top" constant="15" id="1Qx-DE-duq"/>
+                                    <constraint firstAttribute="bottom" secondItem="RuT-75-2Du" secondAttribute="bottom" constant="13" id="XpE-vB-cw3"/>
                                     <constraint firstItem="RuT-75-2Du" firstAttribute="leading" secondItem="I2V-U4-rWT" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="ZJq-ts-HLE"/>
                                     <constraint firstItem="Pyb-1d-gJY" firstAttribute="leading" secondItem="I2V-U4-rWT" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="dFa-Ph-DGw"/>
-                                    <constraint firstAttribute="bottom" secondItem="RuT-75-2Du" secondAttribute="bottom" constant="14" id="eT8-6P-nkb"/>
                                     <constraint firstItem="Pyb-1d-gJY" firstAttribute="trailing" secondItem="RuT-75-2Du" secondAttribute="trailing" type="default" id="lgN-lk-0he"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Last Update:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzS-ub-rHa">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="4ZN-Sc-NuC"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10/17/2012" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zv4-RZ-lZc">
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Zv4-RZ-lZc" firstAttribute="baseline" secondItem="rzS-ub-rHa" secondAttribute="baseline" type="default" id="70r-4d-uI4"/>
                             <constraint firstItem="Gbe-Dh-Eq8" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" symbolic="YES" type="default" id="FAH-0K-rfH"/>
@@ -97,6 +106,7 @@
                             <constraint firstAttribute="trailing" secondItem="Gbe-Dh-Eq8" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="XDP-ZI-iB9"/>
                             <constraint firstItem="rzS-ub-rHa" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bQO-WD-6Kf"/>
                             <constraint firstItem="I2V-U4-rWT" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="d33-dj-aWD"/>
+                            <constraint firstItem="rzS-ub-rHa" firstAttribute="top" secondItem="Zv4-RZ-lZc" secondAttribute="top" type="default" id="dzn-gZ-R5o"/>
                             <constraint firstAttribute="trailing" secondItem="I2V-U4-rWT" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ewE-Hw-EGG"/>
                             <constraint firstItem="8CN-wG-Z6j" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mna-f8-SqT"/>
                             <constraint firstItem="I2V-U4-rWT" firstAttribute="top" secondItem="5" secondAttribute="top" constant="240" id="rIh-2s-Bm0"/>
@@ -106,7 +116,9 @@
                     <navigationItem key="navigationItem" title="LockIt" id="g3d-jQ-e6y"/>
                     <connections>
                         <outlet property="lastUpdateLabel" destination="Zv4-RZ-lZc" id="aho-99-rlR"/>
+                        <outlet property="lockButton" destination="Pyb-1d-gJY" id="aSX-7v-txe"/>
                         <outlet property="statusLabel" destination="Gbe-Dh-Eq8" id="Hob-Y5-14q"/>
+                        <outlet property="unlockButton" destination="RuT-75-2Du" id="Si1-Je-08j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
@@ -129,6 +141,9 @@
             <point key="canvasLocation" x="-88" y="-265"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="blueButton.png" width="36" height="36"/>
+    </resources>
     <classes>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
@@ -139,7 +154,9 @@
                 <relationship kind="action" name="didTapLock:"/>
                 <relationship kind="action" name="didTapUnlock:"/>
                 <relationship kind="outlet" name="lastUpdateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lockButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="unlockButton" candidateClass="UIButton"/>
             </relationships>
         </class>
     </classes>
