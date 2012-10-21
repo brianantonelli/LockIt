@@ -37,12 +37,12 @@ const double lowVoltageThreshold = 4.0; // FIXME: Testing
 const int threshold = 100;  // threshold value to decide when the detected sound is a knock or not
 
 // Bluetooth output command strings
-const String BT_KEY_LOCKED   = "key_locked";
-const String BT_KEY_UNLOCKED = "key_unlocked";
-const String BT_KNOCK        = "knocking";
-const String BT_LOW_BATT     = "low_batt";
-const String BT_STATE_LOCK   = "state_locked";
-const String BT_STATE_UNLOCK = "state_unlocked";
+const String BT_KEY_LOCKED   = "1";
+const String BT_KEY_UNLOCKED = "2";
+const String BT_KNOCK        = "3";
+const String BT_LOW_BATT     = "4";
+const String BT_STATE_LOCK   = "5";
+const String BT_STATE_UNLOCK = "6";
 
 // Bluetooth input command bytes
 const char BT_IN_LOCK       = 'l';

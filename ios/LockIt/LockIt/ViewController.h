@@ -15,5 +15,7 @@
 
 - (IBAction)didTapLock:(id)sender;
 - (IBAction)didTapUnlock:(id)sender;
+- (void) requestLockState;
+- (void) readLastStateResponse;
 
 @end

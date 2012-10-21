@@ -41,7 +41,38 @@ echo $query;
             echo json_encode(array());
         }
         else if($command == 'send_push'){
-            // TODO
+            $passphrase = $CONFIG['ssl_pass'];
+            $message = $_REQUEST['message'];
+            $results = mysql_query("select device_token from users where device_token != 'IOS_SIM'");
+            $out = array();
+            while($row = mysql_fetch_array($results)){
+                $deviceToken = $row['device_token'];
+                $ctx = stream_context_create();
+                stream_context_set_option($ctx, 'ssl', 'local_cert', 'ck.pem');
+                stream_context_set_option($ctx, 'ssl', 'passphrase', $passphrase);
+
+                $fp = stream_socket_client(
+                	'ssl://gateway.sandbox.push.apple.com:2195', $err,
+                	$errstr, 60, STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+
+                if (!$fp) continue; //exit("Failed to connect: $err $errstr" . PHP_EOL);
+
+                $body['aps'] = array('alert' => $message, 'sound' => 'default');
+                $payload = json_encode($body);
+                $msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+                $result = fwrite($fp, $msg, strlen($msg));
+
+                if (!$result){
+                	array_push($out, 'Message not delivered: ' . $deviceToken);
+                }
+                else{
+                	array_push($out, 'Message successfully delivered: ' . $deviceToken);
+                }
+
+                fclose($fp);
+            }
+            
+            echo json_encode($out);
         }
         else if($command == 'send_state'){
             $state = $_REQUEST['state'];

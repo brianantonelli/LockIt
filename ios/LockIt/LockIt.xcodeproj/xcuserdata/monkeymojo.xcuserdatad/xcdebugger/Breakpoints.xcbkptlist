@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "LockIt/ViewController.m"
-         timestampString = "372456983.443666"
+         timestampString = "372467234.612971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "55"
-         endingLineNumber = "55"
+         startingLineNumber = "103"
+         endingLineNumber = "103"
          landmarkName = "-didTapLock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "LockIt/ViewController.m"
-         timestampString = "372456946.9671"
+         timestampString = "372467234.612971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "58"
-         endingLineNumber = "58"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-didTapLock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "LockIt/ViewController.m"
-         timestampString = "372456946.9671"
+         timestampString = "372467234.612971"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "61"
-         endingLineNumber = "61"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
          landmarkName = "-didTapLock:"
          landmarkType = "5">
       </FileBreakpoint>

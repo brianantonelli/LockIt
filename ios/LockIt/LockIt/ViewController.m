@@ -14,34 +14,82 @@
 #define kCommandStatus @"GetState"
 
 @interface ViewController (){
-    BOOL requestingLockState;
+    BOOL readingLockState;
+    long lastResponseID;
 }
--(void) requestLockState;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad
 {
+    lastResponseID = 0;
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self requestLockState];
+    
+    [super viewDidAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
-#pragma mark Private Methods
-
 -(void) requestLockState{
-    if(requestingLockState) return;
     
-    requestingLockState = YES;
+    LockEngine *engine = ApplicationDelegate.lockEngine;
     
+    [engine sendCommand:kCommandStatus
+              withToken:ApplicationDelegate.deviceToken
+    onCompletion:^(id jsonResponse) {
+        [self readLastStateResponse];
+    }
+    onError:^(NSError *error) {
+        NSLog(@"Error sending command: %@", [error localizedDescription]);
+    }];
+}
+
+- (void) readLastStateResponse{
+    NSLog(@"Reading State");
+    if(readingLockState) return;
     
+    readingLockState = YES;
+    LockEngine *engine = ApplicationDelegate.lockEngine;
+
+    [engine getLatestStateOnCompletion:^(id jsonResponse) {
+        readingLockState = NO;
+        jsonResponse = [jsonResponse objectAtIndex:0];
+        NSString *idStr = [jsonResponse objectForKey:@"id"];
+        NSLog(@"id = %@", idStr);
+        long rId = [idStr longLongValue];
+        NSLog(@"lid = %ld", rId);
+        if(rId > lastResponseID){
+            lastResponseID = rId;
+            [_statusLabel setText:[jsonResponse objectForKey:@"state"]];
+            [_lastUpdateLabel setText:[jsonResponse objectForKey:@"time_processed"]];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self requestLockState];
+            });
+            
+            NSLog(@"Received state: %@", [_statusLabel text]);
+        }
+        else{
+            NSLog(@"Received stale lock state");
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self readLastStateResponse];
+            });
+        }
+    } onError:^(NSError *error) {
+        NSLog(@"Error getting lock state: %@", [error localizedDescription]);
+        readingLockState = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self readLastStateResponse];
+        });
+    }];
 }
 
 #pragma mark -

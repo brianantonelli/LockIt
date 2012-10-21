@@ -16,9 +16,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//#if TARGET_IPH`ONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR
     _deviceToken = @"IOS_SIM";
-//#endif
+#endif
     
     _lockEngine = [[LockEngine alloc] initWithHostName:kLockEngineURL];
 
