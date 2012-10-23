@@ -31,8 +31,8 @@ const int knockSensorPin = A13;
 const int speakerPin     = A12;
 
 // Constants
-const int servoPositionUnlocked = 100; // FIXME: Testing
-const int servoPositionLocked = 400; // FIXME: Testing
+const int servoPotPositionUnlocked = 60;
+const int servoPotPositionLocked = 280;
 const double lowVoltageThreshold = 4.0; // FIXME: Testing
 const int threshold = 100;  // threshold value to decide when the detected sound is a knock or not
 
@@ -147,29 +147,35 @@ char readBTCommand(){
 
 boolean isDoorLocked(){
   int servoVal = analogRead(servoPotPin);
-
-  if(servoVal <= servoPositionUnlocked){
+  Serial.print("Servo pot: ");
+  Serial.println(servoVal);
+  if(servoVal <= servoPotPositionUnlocked + 10){
     return false;
   }
-  else if(servoVal >= servoPositionLocked){
+  else if(servoVal >= servoPotPositionLocked - 10){
     return true;
   }  
 
   return lastStateLocked; // Servo is between lock and unlocked, probably being manually moved
-
 }
 
 void lockDoor(){
   if(lastStateLocked) return;
-  
-  moveServo(180);
+  // 60 u 280 l
+  moveServo(servoPotSensorValueToServoPosition(servoPotPositionLocked));
   lastStateLocked = true;
 }
 
 void unlockDoor(){
   if(!lastStateLocked) return;
-  moveServo(0);
+  moveServo(servoPotSensorValueToServoPosition(servoPotPositionUnlocked))
   lastStateLocked = false;
+}
+
+int servoPotSensorValueToServoPosition(int potValue){
+  // servo input value goes from 0  - 180
+  // servo pot   value goes from 56 - 403
+  return map(potValue, 56, 403, 0, 180);
 }
 
 void moveServo(int deg){
@@ -180,6 +186,8 @@ void moveServo(int deg){
   //  max time it takes to do a 180deg rotation.
   delay(600); 
   servo.detach();
+  Serial.print("servo pot: "); 
+  Serial.println(analogRead(servoPotPin));
 }
 
 // End deadbolt code (servo)
@@ -188,8 +196,8 @@ void moveServo(int deg){
 
 boolean isKnocking(){
   sensorReading = analogRead(knockSensorPin);
-  Serial.print("Knocking reading: ");
-  Serial.println(sensorReading);
+//  Serial.print("Knocking reading: ");
+//  Serial.println(sensorReading);
   if(sensorReading >= threshold){
     return true;
     Serial.println("Knock!");         
