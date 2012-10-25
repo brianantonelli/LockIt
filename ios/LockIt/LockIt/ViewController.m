@@ -16,8 +16,11 @@
 @interface ViewController (){
     BOOL readingLockState;
     long lastResponseID;
+    int attempts;
+    NSTimer *staleAnimator;
 }
 -(void) styleButton:(UIButton*)button withColor:(NSString*)color;
+-(void) animateStale;
 @end
 
 @implementation ViewController
@@ -25,6 +28,7 @@
 - (void)viewDidLoad
 {
     lastResponseID = 0;
+    attempts = 0;
     
     // Background gradient
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"NSTexturedFullScreenBackgroundColor.png"]]];
@@ -51,6 +55,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    [self enableUnknownMode];
     [self requestLockState];
     
     [super viewDidAppear:YES];
@@ -82,7 +87,7 @@
 
 - (void) readLastStateResponse{
     if(readingLockState) return;
-    NSLog(@"readLastStateResponse");
+
     readingLockState = YES;
     LockEngine *engine = ApplicationDelegate.lockEngine;
 
@@ -91,33 +96,43 @@
         jsonResponse = [jsonResponse objectAtIndex:0];
         NSString *idStr = [jsonResponse objectForKey:@"id"];
         long rId = [idStr longLongValue];
-        if(rId > lastResponseID){
+        BOOL stale = [[jsonResponse objectForKey:@"stale"] boolValue];
+        if(rId > lastResponseID || stale){
             lastResponseID = rId;
-            NSLog(@"new %ld %@", lastResponseID, [jsonResponse objectForKey:@"state"]);
+            
             BOOL locked = [[jsonResponse objectForKey:@"state"] isEqualToString:@"Locked"];
 
             if(locked){
                 [_statusLabel setText:@"Your front door is locked."];
                 [_lockImageView setImage:[UIImage imageNamed:@"locked.png"]];
                 [self styleButton:_lockButton withColor:@"grey"];
+                [_lockButton setEnabled:NO];
                 [self styleButton:_unlockButton withColor:@"blue"];
+                [_unlockButton setEnabled:YES];
             }
             else{
                 [_statusLabel setText:@"Your front door is unlocked."];
                 [_lockImageView setImage:[UIImage imageNamed:@"unlocked.png"]];
                 [self styleButton:_lockButton withColor:@"blue"];
+                [_lockButton setEnabled:YES];
                 [self styleButton:_unlockButton withColor:@"grey"];
+                [_unlockButton setEnabled:NO];
             }
             
-            [_lastUpdateLabel setText:[NSString stringWithFormat:@"Last ping was %@.", [jsonResponse objectForKey:@"time_processed"]]];
+            if(stale){
+                [self enableUnknownMode];
+            }
+            else{
+                [self disableUnknownMode];
+            }
+
+            [_lastUpdateLabel setText:[NSString stringWithFormat:@"Updated %@", [jsonResponse objectForKey:@"time_processed"]]];
             
-            NSLog(@"GTG. Delay a fresh request");
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self requestLockState];
             });
         }
         else{
-            NSLog(@"Stale");
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self readLastStateResponse];
             });
@@ -131,6 +146,36 @@
     }];
 }
 
+-(void) enableUnknownMode{
+    [_statusLabel setText:@"Door Status Unknown"];
+    [_unlockButton setEnabled:NO];
+    [_lockButton setEnabled:NO];
+
+    if(staleAnimator == nil){
+        staleAnimator = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(animateStale) userInfo:nil repeats:YES];
+    }
+}
+
+-(void) disableUnknownMode{
+    if(staleAnimator == nil) return;
+    
+    [staleAnimator invalidate];
+    staleAnimator = nil;
+    
+    [_unknownLabel setHidden:YES];
+}
+
+#pragma mark - Private
+                     
+-(void) animateStale{
+    if([_unknownLabel isHidden]){
+        [_unknownLabel setHidden:NO];
+    }
+    else{
+        [_unknownLabel setHidden:YES];
+    }
+}
+                     
 #pragma mark - IBActions
 
 - (IBAction)didTapLock:(id)sender {

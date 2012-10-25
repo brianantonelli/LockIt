@@ -44,8 +44,10 @@
             if($row){
                 array_push($result, array(
                     'id' => $row['id'],
-                    'time_processed' => time_passed(strtotime($row['time_processed'])),
-                    'state' => $row['response_payload']
+                    'time_processed' => date_format(date_create($row['time_processed']), 'm/d/Y g:i:s A'), // time_passed(strtotime($row['time_processed'])),
+                    'state' => $row['response_payload'],
+                    'stale' => ((time() - strtotime($row['time_processed'])) > 300),
+                    // 'stale_for'=>(time() - strtotime($row['time_processed']))
                 ));
             }
             

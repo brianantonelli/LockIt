@@ -14,10 +14,11 @@
 
 @end
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UITableViewController
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property(nonatomic, assign) id<SettingsViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *serverLabel;
 
 - (IBAction)didTapDoneButton:(id)sender;
 

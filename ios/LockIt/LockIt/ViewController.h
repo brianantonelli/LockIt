@@ -16,10 +16,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *lockButton;
 @property (weak, nonatomic) IBOutlet UIButton *unlockButton;
 @property (weak, nonatomic) IBOutlet UIImageView *lockImageView;
+@property (weak, nonatomic) IBOutlet UILabel *unknownLabel;
 
 - (IBAction)didTapLock:(id)sender;
 - (IBAction)didTapUnlock:(id)sender;
 - (void) requestLockState;
 - (void) readLastStateResponse;
-
+- (void) enableUnknownMode;
+- (void) disableUnknownMode;
 @end

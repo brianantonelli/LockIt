@@ -14,10 +14,11 @@
 
 @implementation SettingsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
+        // Custom initialization
     }
     return self;
 }
@@ -25,16 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Background gradient
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"NSTexturedFullScreenBackgroundColor.png"]]];
-    
-    // Style buttons
-    UIImage *buttonImage = [[UIImage imageNamed:@"blueButton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-    UIImage *buttonImageHighlight = [[UIImage imageNamed:@"blueButtonHighlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-    //        [_lockButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    //        [_lockButton setBackgroundImage:buttonImageHighlight forState:UIControlStateHighlighted];
-    
+        
     // Style navigation bar
     _navBar.tintColor = [UIColor colorWithRed:248/1000 green:248/1000 blue:248/1000 alpha:1];
 }
@@ -48,4 +43,11 @@
 - (IBAction)didTapDoneButton:(id)sender {
     if(_delegate) [_delegate settingsViewDidDismiss];
 }
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
 @end
