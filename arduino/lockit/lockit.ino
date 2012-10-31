@@ -20,15 +20,14 @@ int count3 = 0;
 int MAX_COUNT = 24;
 
 // Pins
-const int servoSignalPin = A8;
-const int ledUnlockedPin = A2;
-const int ledLockedPin   = A3;
-const int ledLowBattery  = A5;
 const int ledOnboardPin  = 13;
-const int pushButtonPin  = A15;
-const int servoPotPin    = A14;
-const int knockSensorPin = A13;
-const int speakerPin     = A12;
+const int ledUnlockedPin = A0;
+const int ledLockedPin   = A1;
+const int pushButtonPin  = A2;
+const int speakerPin     = A3;
+const int servoSignalPin = A4;
+const int servoPotPin    = A5;
+const int knockSensorPin = A6;
 
 // Constants
 const int servoPotPositionUnlocked = 60;
@@ -168,7 +167,7 @@ void lockDoor(){
 
 void unlockDoor(){
   if(!lastStateLocked) return;
-  moveServo(servoPotSensorValueToServoPosition(servoPotPositionUnlocked))
+  moveServo(servoPotSensorValueToServoPosition(servoPotPositionUnlocked));
   lastStateLocked = false;
 }
 
@@ -221,14 +220,7 @@ void updateLEDs(){
   else{
     digitalWrite(ledLockedPin, LOW);
     digitalWrite(ledUnlockedPin, HIGH);
-  }
-  
-  if(batteryLow){
-    digitalWrite(ledLowBattery, HIGH);
-  }
-  else{
-    digitalWrite(ledLowBattery, LOW);
-  }
+  }  
 }
 
 boolean isLowBattery(){
